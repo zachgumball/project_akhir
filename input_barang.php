@@ -4,7 +4,7 @@ include 'koneksi.php';
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Pert 14</title>
+        <title>INPUT DATA BUAH - TBZ</title>
         <style>
             body{
                 background-color: whitesmoke;
@@ -28,7 +28,7 @@ include 'koneksi.php';
             </table>
             <button align="center">SUBMIT</button>
             <hr width="60%" color="red" align="left">
-            <a href="tampilkan.php">Tampilkan</a>
+            <a href="show_table.php">Tampilkan</a>
         </form>
     </body>
 </html>

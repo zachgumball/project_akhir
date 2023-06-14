@@ -22,6 +22,25 @@ include 'koneksi.php'
             .col{
                 border-radius: 10px;
             }
+            .col img{
+              transform: transition 0.3s ;
+            }
+            .col img:hover{
+              transform: scale(1.1);
+            }
+            .btn{
+              margin-bottom: 5px;
+            }
+            .col p{
+              padding-top: 10px;
+            }
+            .nav-link{
+              transform: transition 0.3;
+            }
+            .id_buah{
+              font-family: 'Tilt Prism', cursive;
+            }
+            @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Righteous&family=Tilt+Prism&display=swap');
         </style>
     </head>
     <body>
@@ -55,7 +74,7 @@ include 'koneksi.php'
         
           <!-- Slideshow Gambar -->
           <div class="slideshow-gambar" style="margin-left: 100px; margin-right: 100px;">
-            <img src="buah-buahan.webp" class="img-fluid" alt="buah-buahan" width="1800" height="300">
+            <img src="buah-buahan.webp" class="img-fluid" alt="buah-buahan" width="1800" height="300px">
           </div>
 
           <!-- Isi toko atau container -->
@@ -63,38 +82,50 @@ include 'koneksi.php'
             <div class="container text-center" style="margin-top: 10px;">
             <!-- Baris pertama -->
                 <div class="row">
-                  <div class="col" style="background-color: white; margin-right: 5px; padding-top: 5px;">
+                  <div class="col" style="background-color: white; margin-right: 5px; padding-top: 10px;">
+                    <p class="id_buah">A01</p>
                     <img src="jeruk.jpg" alt="jeruk" width="300px" height="200px">
                     <b><p>Jeruk Segar</p></b>
                     <p>Harga (per-buah) = Rp. <?php echo $harga_jeruk?></p>
+                    <button type="button" class="btn btn-primary">BELI</button>
                   </div>
-                  <div class="col" style="background-color: white; margin-right: 5px; padding-top: 5px;">
+                  <div class="col" style="background-color: white; margin-right: 5px; padding-top: 10px;">
+                    <p class="id_buah">A02</p>
                     <img src="anggur.webp" alt="anggur" width="300px" height="200px">
                     <b><p>Anggur Segar</p></b>
                     <p>Harga (per-buah) = Rp. <?php echo $harga_anggur?></p>
+                    <button type="button" class="btn btn-primary">BELI</button>
                   </div>
-                  <div class="col" style="background-color: white; padding-top: 5px;">
+                  <div class="col" style="background-color: white; padding-top: 10px;">
+                    <p class="id_buah">A03</p>
                     <img src="apel.jpg" alt="apel" width="300px" height="200px">
                     <b><p>Apel Segar</p></b>
                     <p>Harga (per-buah) = Rp. <?php echo $harga_apel?></p>
+                    <button type="button" class="btn btn-primary">BELI</button>
                   </div>
                 </div>
                 <!-- Baris Kedua -->
                 <div class="row" style="margin-top : 10px;">
-                  <div class="col" style="background-color: white; margin-right: 5px; padding-top: 5px;">
+                  <div class="col" style="background-color: white; margin-right: 5px; padding-top: 10px;">
+                    <p class="id_buah">A04</p>
                     <img src="nanas.webp" alt="nanas" width="300px" height="200px">
                     <b><p>Nanas Segar</p></b>
                     <p>Harga (per-buah) = Rp. <?php echo $harga_nanas?></p>
+                    <button type="button" class="btn btn-primary">BELI</button>
                   </div>
-                  <div class="col" style="background-color: white; margin-right: 5px; padding-top: 5px;">
+                  <div class="col" style="background-color: white; margin-right: 5px; padding-top: 10px;">
+                    <p class="id_buah">A05</p>
                     <img src="alpukat.jpg" alt="alpukat" width="300px" height="200px">
                     <b><p>Alpukat</p></b>
                     <p>Harga (per-buah) = Rp. <?php echo $harga_alpukat?></p>
+                    <button type="button" class="btn btn-primary">BELI</button>
                   </div>
-                  <div class="col" style="background-color: white; padding-top: 5px;">
+                  <div class="col" style="background-color: white; padding-top: 10px;">
+                    <p class="id_buah">A06</p>
                     <img src="pepaya.jpg" alt="pepaya" width="300px" height="200px">
                     <b><p>Pepaya</p></b>
                     <p>Harga (per-buah) = Rp. <?php echo $harga_pepaya?></p>
+                    <button type="button" class="btn btn-primary">BELI</button>
                   </div>
                 </div>
               </div>

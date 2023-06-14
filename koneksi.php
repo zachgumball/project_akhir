@@ -48,7 +48,7 @@ $nanas = "SELECT harga_buah FROM buah WHERE id_buah = 'A04'";
 $result_nanas = $conn->query($nanas);
 
 if ($result_nanas->num_rows > 0) {
-    $row = $result_apel->fetch_assoc();
+    $row = $result_nanas->fetch_assoc();
     $harga_nanas = $row["harga_buah"];
 } else {
     $harga_nanas = "N/A";
