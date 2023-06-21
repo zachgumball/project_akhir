@@ -12,7 +12,7 @@ include 'koneksi.php';
         </style>
     </head>
     <body>
-        <form action="koneksi_simpan.php" method="post">
+    <form action="koneksi_simpan.php" method="post" enctype="multipart/form-data">
             <h1>FORM INPUT DATA BUAH</h1><br>
             <hr width="60%" color="red" align="left">
             <table>
@@ -25,6 +25,8 @@ include 'koneksi.php';
                 <tr>
                 <td><p>Harga Satuan Buah  </p></td>
                 <td>: <input type="text" name="harga_buah"></td></tr>
+                <td><p>Gambar Buah </p></td>
+                <td>: <input type="file" name="gambar"></td>
             </table>
             <button align="center">SUBMIT</button>
             <hr width="60%" color="red" align="left">

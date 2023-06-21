@@ -1,8 +1,4 @@
 <?php
-$id_buah = $_POST['id_buah'];
-$nama_buah = $_POST['nama_buah'];
-$harga_buah = $_POST['harga_buah'];
-
 $servername = "localhost";
 $db_username = "root";
 $db_password = "";
@@ -14,12 +10,33 @@ if ($conn->connect_error) {
     die("Koneksi database gagal: " . $conn->connect_error);
 }
 
-// Menyimpan data barang
-$sql = "INSERT INTO buah (id_buah, nama_buah,  harga_buah) VALUES ('$id_buah', '$nama_buah','$harga_buah')";
+$id_buah = $_POST['id_buah'];
+$nama_buah = $_POST['nama_buah'];
+$harga_buah = $_POST['harga_buah'];
 
-if ($conn->query($sql) === TRUE) {
-    echo 'Kamu berhasil menyimpan data';
+if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] === UPLOAD_ERR_OK) {
+    $gambar = $_FILES['gambar']['name'];
+    $gambar_tmp = $_FILES['gambar']['tmp_name'];
+    $gambar_destination = 'uploads/' . $gambar;
+
+    if (move_uploaded_file($gambar_tmp, $gambar_destination)) {
+        $sql = "INSERT INTO buah (id_buah, nama_buah, harga_buah, gambar) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssss", $id_buah, $nama_buah, $harga_buah, $gambar_destination);
+
+        if ($stmt->execute()) {
+            echo 'Kamu berhasil menyimpan data';
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+    } else {
+        echo "Failed to move the uploaded image to the destination folder.";
+    }
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "No image uploaded or an error occurred during upload.";
 }
+
+$conn->close();
 ?>

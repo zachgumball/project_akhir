@@ -1,5 +1,24 @@
 <?php
-include 'koneksi.php'
+include 'koneksi.php';
+
+$sql = "SELECT id_buah, nama_buah, gambar FROM buah";
+$result = $conn->query($sql);
+
+$fruitNames = array();
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $id_buah = $row['id_buah'];
+        $nama_buah = $row['nama_buah'];
+        $gambar_destination = $row['gambar'];
+        $fruitNames[$id_buah] = $nama_buah;
+        ?>
+        
+        <?php
+    }
+} else {
+    echo 'No fruits found.';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +40,7 @@ include 'koneksi.php'
             }
             .col{
                 border-radius: 10px;
+                border: 1px solid blue;
             }
             .col img{
               transform: transition 0.3s ;
@@ -60,9 +80,10 @@ include 'koneksi.php'
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link disabled" href="input_barang.php" target="_blank" style="margin-left : 10px;">Admin</a>
+                    <a class="nav-link" href="input_barang.php" target="_blank" style="margin-left : 10px;">Admin</a>
                   </li>
                 </ul>
+                <h1 style=" font-family: 'Kalam', cursive;margin-right: 250px;">TokoBuah Zynta</h1>
                 <form class="d-flex" role="search">
                   <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                   <button class="btn btn-outline-success" type="submit">Search</button>
@@ -73,7 +94,7 @@ include 'koneksi.php'
         </div>
         
           <!-- Slideshow Gambar -->
-          <div class="slideshow-gambar" style="margin-left: 100px; margin-right: 100px;">
+          <div class="slideshow-gambar" style="margin-left: 100px; margin-right: 100px; margin-top: 5px;">
             <img src="buah-buahan.webp" class="img-fluid" alt="buah-buahan" width="1800" height="300px">
           </div>
 
@@ -82,24 +103,54 @@ include 'koneksi.php'
             <div class="container text-center" style="margin-top: 10px;">
             <!-- Baris pertama -->
                 <div class="row">
-                  <div class="col" style="background-color: white; margin-right: 5px; padding-top: 10px;">
-                    <p class="id_buah">A01</p>
-                    <img src="jeruk.jpg" alt="jeruk" width="300px" height="200px">
-                    <b><p>Jeruk Segar</p></b>
-                    <p>Harga (per-buah) = Rp. <?php echo $harga_jeruk?></p>
+                    <div class="col" style="background-color: white; margin-right: 5px; padding-top: 10px;">
+                    <?php
+                      $sql = "SELECT gambar FROM buah WHERE id_buah = 'A01'";
+                      $result = $conn->query($sql);
+
+                      if ($result->num_rows > 0) {
+                          $row = $result->fetch_assoc();
+                          $gambar_destination = $row['gambar'];
+                          echo '<img src="' . $gambar_destination . '" alt="Buah Image" width="300px" height="200px">';
+                      } else {
+                          echo 'Gambar tidak ditemukan.';
+                      }
+                      ?>
+                      <b><p><?php echo $fruitNames[$id_buah = 'A01']; ?></p></b>
+                      <p>Harga (per-buah) = Rp. <?php echo $harga_jeruk ?></p>
                     <button type="button" class="btn btn-primary">BELI</button>
                   </div>
                   <div class="col" style="background-color: white; margin-right: 5px; padding-top: 10px;">
-                    <p class="id_buah">A02</p>
-                    <img src="anggur.webp" alt="anggur" width="300px" height="200px">
-                    <b><p>Anggur Segar</p></b>
+                  <?php
+                      $sql = "SELECT gambar FROM buah WHERE id_buah = 'A02'";
+                      $result = $conn->query($sql);
+
+                      if ($result->num_rows > 0) {
+                          $row = $result->fetch_assoc();
+                          $gambar_destination = $row['gambar'];
+                          echo '<img src="' . $gambar_destination . '" alt="Buah Image" width="300px" height="200px">';
+                      } else {
+                          echo 'Gambar tidak ditemukan.';
+                      }
+                      ?>
+                    <b><p><?php echo $fruitNames[$id_buah = 'A02']; ?></p></b>
                     <p>Harga (per-buah) = Rp. <?php echo $harga_anggur?></p>
                     <button type="button" class="btn btn-primary">BELI</button>
                   </div>
                   <div class="col" style="background-color: white; padding-top: 10px;">
-                    <p class="id_buah">A03</p>
-                    <img src="apel.jpg" alt="apel" width="300px" height="200px">
-                    <b><p>Apel Segar</p></b>
+                  <?php
+                      $sql = "SELECT gambar FROM buah WHERE id_buah = 'A03'";
+                      $result = $conn->query($sql);
+
+                      if ($result->num_rows > 0) {
+                          $row = $result->fetch_assoc();
+                          $gambar_destination = $row['gambar'];
+                          echo '<img src="' . $gambar_destination . '" alt="Buah Image" width="300px" height="200px">';
+                      } else {
+                          echo 'Gambar tidak ditemukan.';
+                      }
+                      ?>
+                    <b><p><?php echo $fruitNames[$id_buah = 'A03']; ?></p></b>
                     <p>Harga (per-buah) = Rp. <?php echo $harga_apel?></p>
                     <button type="button" class="btn btn-primary">BELI</button>
                   </div>
@@ -107,23 +158,53 @@ include 'koneksi.php'
                 <!-- Baris Kedua -->
                 <div class="row" style="margin-top : 10px;">
                   <div class="col" style="background-color: white; margin-right: 5px; padding-top: 10px;">
-                    <p class="id_buah">A04</p>
-                    <img src="nanas.webp" alt="nanas" width="300px" height="200px">
-                    <b><p>Nanas Segar</p></b>
+                  <?php
+                      $sql = "SELECT gambar FROM buah WHERE id_buah = 'A04'";
+                      $result = $conn->query($sql);
+
+                      if ($result->num_rows > 0) {
+                          $row = $result->fetch_assoc();
+                          $gambar_destination = $row['gambar'];
+                          echo '<img src="' . $gambar_destination . '" alt="Buah Image" width="300px" height="200px">';
+                      } else {
+                          echo 'Gambar tidak ditemukan.';
+                      }
+                      ?>
+                    <b><p><?php echo $fruitNames[$id_buah = 'A04']; ?></p></b>
                     <p>Harga (per-buah) = Rp. <?php echo $harga_nanas?></p>
                     <button type="button" class="btn btn-primary">BELI</button>
                   </div>
                   <div class="col" style="background-color: white; margin-right: 5px; padding-top: 10px;">
-                    <p class="id_buah">A05</p>
-                    <img src="alpukat.jpg" alt="alpukat" width="300px" height="200px">
-                    <b><p>Alpukat</p></b>
+                  <?php
+                      $sql = "SELECT gambar FROM buah WHERE id_buah = 'A05'";
+                      $result = $conn->query($sql);
+
+                      if ($result->num_rows > 0) {
+                          $row = $result->fetch_assoc();
+                          $gambar_destination = $row['gambar'];
+                          echo '<img src="' . $gambar_destination . '" alt="Buah Image" width="300px" height="200px">';
+                      } else {
+                          echo 'Gambar tidak ditemukan.';
+                      }
+                      ?>
+                    <b><p><?php echo $fruitNames[$id_buah = 'A05']; ?></p></b>
                     <p>Harga (per-buah) = Rp. <?php echo $harga_alpukat?></p>
                     <button type="button" class="btn btn-primary">BELI</button>
                   </div>
                   <div class="col" style="background-color: white; padding-top: 10px;">
-                    <p class="id_buah">A06</p>
-                    <img src="pepaya.jpg" alt="pepaya" width="300px" height="200px">
-                    <b><p>Pepaya</p></b>
+                  <?php
+                      $sql = "SELECT gambar FROM buah WHERE id_buah = 'A06'";
+                      $result = $conn->query($sql);
+
+                      if ($result->num_rows > 0) {
+                          $row = $result->fetch_assoc();
+                          $gambar_destination = $row['gambar'];
+                          echo '<img src="' . $gambar_destination . '" alt="Buah Image" width="300px" height="200px">';
+                      } else {
+                          echo 'Gambar tidak ditemukan.';
+                      }
+                      ?>
+                    <b><p><?php echo $fruitNames[$id_buah = 'A06']; ?></p></b>
                     <p>Harga (per-buah) = Rp. <?php echo $harga_pepaya?></p>
                     <button type="button" class="btn btn-primary">BELI</button>
                   </div>

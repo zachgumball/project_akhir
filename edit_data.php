@@ -1,3 +1,6 @@
+<head>
+<link rel="icon" href="logo.png">
+</head>
 <h1>TABEL EDIT BUAH</h1>
 <hr width="35%" color="red" align="left">
 <style>
@@ -30,7 +33,7 @@ if ($conn->connect_error) {
 if (isset($_GET['id_buah'])) {
     $id_buah = $_GET['id_buah'];
 
-    $sql = "SELECT id_buah, nama_buah, harga_buah FROM buah WHERE id_buah = ?";
+    $sql = "SELECT id_buah, nama_buah, harga_buah, gambar FROM buah WHERE id_buah = ?";
 
     $stmt = $conn->prepare($sql);
     
@@ -44,11 +47,12 @@ if (isset($_GET['id_buah'])) {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        echo '<form method="post" action="edit_data_koneksi.php">';
+        echo '<form method="post" action="edit_data_koneksi.php" enctype="multipart/form-data">';
         echo '<table>';
-        echo '<tr><td>ID Buah</td><td><input type="text" name="id_buah" value="' . $row['id_buah'] . '" readonly></td></tr>';
-        echo '<tr><td>Nama Buah</td><td><input type="text" name="nama_buah" value="' . $row['nama_buah'] . '"></td></tr>';
-        echo '<tr><td>Harga Buah</td><td><input type="text" name="harga_buah" value="' . $row['harga_buah'] . '"></td></tr>';
+        echo '<tr><td>ID Buah</td><td>: <input type="text" name="id_buah" value="' . $row['id_buah'] . '" readonly></td></tr>';
+        echo '<tr><td>Nama Buah</td><td>: <input type="text" name="nama_buah" value="' . $row['nama_buah'] . '"></td></tr>';
+        echo '<tr><td>Harga Buah</td><td>: <input type="text" name="harga_buah" value="' . $row['harga_buah'] . '"></td></tr>';
+        echo '<tr><td>Gambar</td><td>: <input type="file" name="gambar"></td></tr>';
         echo '</table>';
         echo '<br>';
     } else {
@@ -66,4 +70,3 @@ $conn->close();
 <hr width="35%" color="red" align="left" style="margin-top: -10px;">
 <input type="submit" value="Submit">
 </form>
-

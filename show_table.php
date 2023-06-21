@@ -1,3 +1,7 @@
+<head>
+<link rel="icon" href="logo.png">
+</head>
+
 <h1>TABEL DATA BUAH</h1>
 <hr width="60%" color="red" align="left">
 <style>
@@ -40,7 +44,7 @@ if ($result->num_rows > 0) {
         echo '<td>' . $row['nama_buah'] . '</td>';
         echo '<td>' . $row['harga_buah'] . '</td>';
         echo '<td><a href="edit_data.php?id_buah=' . $row['id_buah'] . '">Edit</a></td>';
-        echo '<td><a href="hapus.php?id_buah=' . $row['id_buah'] . '">Hapus</a></td>';
+        echo '<td><a href="hapus_data.php?id_buah=' . $row['id_buah'] . '">Hapus</a></td>';
         echo '</tr>';
     }
 
@@ -52,3 +56,4 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 <hr width="60%" color="red" align="left">
+<p>Kembali ke menu <a href="input_barang.php">Input Data</a></p>
