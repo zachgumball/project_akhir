@@ -1,7 +1,7 @@
 <?php
 include 'koneksi.php';
 
-$sql = "SELECT id_buah, nama_buah, gambar FROM buah";
+$sql = "SELECT id_buah, nama_buah,harga_buah, gambar FROM buah";
 $result = $conn->query($sql);
 
 $fruitNames = array();
@@ -10,8 +10,10 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $id_buah = $row['id_buah'];
         $nama_buah = $row['nama_buah'];
+        $harga_buah = $row['harga_buah'];
         $gambar_destination = $row['gambar'];
         $fruitNames[$id_buah] = $nama_buah;
+        $priceFruit[$id_buah] = $harga_buah;
         ?>
         
         <?php
@@ -60,6 +62,37 @@ if ($result->num_rows > 0) {
             .id_buah{
               font-family: 'Tilt Prism', cursive;
             }
+            .overlay, .overlay1, .overlay2, .overlay3, .overlay4, .overlay5 {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: rgba(0, 0, 0, 0.5);
+              display: none;
+              justify-content: center;
+              align-items: center;
+              z-index: 9999;
+            }
+            
+            .form-box {
+              background-color: white;
+              padding: 20px;
+              border-radius: 10px;
+              width: 500px;
+              max-width: 90%;
+              text-align: center;
+            }
+
+            .form-box button {
+              width: 100%;
+              padding: 10px;
+              border: none;
+              background-color: #4caf50;
+              color: white;
+              border-radius: 5px;
+              cursor: pointer;
+            }
             @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Righteous&family=Tilt+Prism&display=swap');
         </style>
     </head>
@@ -80,7 +113,7 @@ if ($result->num_rows > 0) {
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="input_barang.php" target="_blank" style="margin-left : 10px;">Admin</a>
+                    <a class="nav-link disabled" href="input_barang.php" target="_blank" style="margin-left : 10px;">Admin</a>
                   </li>
                 </ul>
                 <h1 style=" font-family: 'Kalam', cursive;margin-right: 250px;">TokoBuah Zynta</h1>
@@ -117,8 +150,8 @@ if ($result->num_rows > 0) {
                       }
                       ?>
                       <b><p><?php echo $fruitNames[$id_buah = 'A01']; ?></p></b>
-                      <p>Harga (per-buah) = Rp. <?php echo $harga_jeruk ?></p>
-                    <button type="button" class="btn btn-primary">BELI</button>
+                      <p>Harga (per-buah) = Rp. <?php echo $priceFruit[$id_buah='A01']; ?></p>
+                      <button type="button" class="btn btn-primary" onclick="showFormOverlay()">BELI</button>
                   </div>
                   <div class="col" style="background-color: white; margin-right: 5px; padding-top: 10px;">
                   <?php
@@ -134,8 +167,8 @@ if ($result->num_rows > 0) {
                       }
                       ?>
                     <b><p><?php echo $fruitNames[$id_buah = 'A02']; ?></p></b>
-                    <p>Harga (per-buah) = Rp. <?php echo $harga_anggur?></p>
-                    <button type="button" class="btn btn-primary">BELI</button>
+                    <p>Harga (per-buah) = Rp. <?php echo $priceFruit[$id_buah='A02']; ?></p>
+                    <button type="button" class="btn btn-primary" onclick="showFormOverlay1()">BELI</button>
                   </div>
                   <div class="col" style="background-color: white; padding-top: 10px;">
                   <?php
@@ -151,8 +184,8 @@ if ($result->num_rows > 0) {
                       }
                       ?>
                     <b><p><?php echo $fruitNames[$id_buah = 'A03']; ?></p></b>
-                    <p>Harga (per-buah) = Rp. <?php echo $harga_apel?></p>
-                    <button type="button" class="btn btn-primary">BELI</button>
+                    <p>Harga (per-buah) = Rp. <?php echo $priceFruit[$id_buah='A03']; ?></p>
+                    <button type="button" class="btn btn-primary" onclick="showFormOverlay2()">BELI</button>
                   </div>
                 </div>
                 <!-- Baris Kedua -->
@@ -171,8 +204,8 @@ if ($result->num_rows > 0) {
                       }
                       ?>
                     <b><p><?php echo $fruitNames[$id_buah = 'A04']; ?></p></b>
-                    <p>Harga (per-buah) = Rp. <?php echo $harga_nanas?></p>
-                    <button type="button" class="btn btn-primary">BELI</button>
+                    <p>Harga (per-buah) = Rp. <?php echo $priceFruit[$id_buah='A04']; ?></p>
+                    <button type="button" class="btn btn-primary" onclick="showFormOverlay3()">BELI</button>
                   </div>
                   <div class="col" style="background-color: white; margin-right: 5px; padding-top: 10px;">
                   <?php
@@ -188,8 +221,8 @@ if ($result->num_rows > 0) {
                       }
                       ?>
                     <b><p><?php echo $fruitNames[$id_buah = 'A05']; ?></p></b>
-                    <p>Harga (per-buah) = Rp. <?php echo $harga_alpukat?></p>
-                    <button type="button" class="btn btn-primary">BELI</button>
+                    <p>Harga (per-buah) = Rp. <?php echo $priceFruit[$id_buah='A05']; ?></p>
+                    <button type="button" class="btn btn-primary" onclick="showFormOverlay4()">BELI</button>
                   </div>
                   <div class="col" style="background-color: white; padding-top: 10px;">
                   <?php
@@ -205,12 +238,228 @@ if ($result->num_rows > 0) {
                       }
                       ?>
                     <b><p><?php echo $fruitNames[$id_buah = 'A06']; ?></p></b>
-                    <p>Harga (per-buah) = Rp. <?php echo $harga_pepaya?></p>
-                    <button type="button" class="btn btn-primary">BELI</button>
+                    <p>Harga (per-buah) = Rp. <?php echo $priceFruit[$id_buah='A06']; ?></p>
+                    <button type="button" class="btn btn-primary" onclick="showFormOverlay5()">BELI</button>
                   </div>
                 </div>
               </div>
           </div>
+          <div class="overlay">
+            <div class="form-box">
+              <h3>Masukan data pembelian</h3>
+              <hr>
+              <form method="post" action="proses_pembelian.php">
+                <table>
+                    <tr>
+                        <td><p style="text-align: left;">Nama Pembeli</p></td>
+                        <td>: <input type="text" name="nama_pembeli"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Alamat Pembeli</p></td>
+                        <td>: <input type="text" name="alamat_pembeli"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Id Buah</p></td>
+                        <td>: <input type="text" name="id_buah" value="<?php echo $id_buah='A01'; ?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Nama Barang/Buah</p></td>
+                        <td>: <input type="text" name="nama_buah" value="<?php echo $fruitNames[$id_buah = 'A01']; ?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Harga Satuan</p></td>
+                        <td>: <input type="text" name="harga_buah" value="<?php echo $priceFruit[$id_buah='A01'];?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Jumlah Pembelian</p></td>
+                        <td>: <input type="text" name="jumlah_pembelian"></td>
+                    </tr>
+                </table>
+                <button type="submit" style="margin-bottom: 10px;">Submit</button>
+            </form>
+            <button type="button" onclick="hideFormOverlay()" style="background-color: red;">Close</button>
+          </div>
+        </div>
+        <div class="overlay1">
+            <div class="form-box">
+              <h3>Masukan data pembelian</h3>
+              <hr>
+              <form method="post" action="proses_pembelian.php">
+                <table>
+                    <tr>
+                        <td><p style="text-align: left;">Nama Pembeli</p></td>
+                        <td>: <input type="text" name="nama_pembeli"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Alamat Pembeli</p></td>
+                        <td>: <input type="text" name="alamat_pembeli"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Id Buah</p></td>
+                        <td>: <input type="text" name="id_buah" value="<?php echo $id_buah='A02'; ?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Nama Barang/Buah</p></td>
+                        <td>: <input type="text" name="nama_buah" value="<?php echo $fruitNames[$id_buah = 'A02']; ?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Harga Satuan</p></td>
+                        <td>: <input type="text" name="harga_buah" value="<?php echo $priceFruit[$id_buah='A02'];?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Jumlah Pembelian</p></td>
+                        <td>: <input type="text" name="jumlah_pembelian"></td>
+                    </tr>
+                </table>
+                <button type="submit" style="margin-bottom: 10px;">Submit</button>
+            </form>
+            <button type="button" onclick="hideFormOverlay()" style="background-color: red;">Close</button>
+          </div>
+        </div>
+        <div class="overlay2">
+            <div class="form-box">
+              <h3>Masukan data pembelian</h3>
+              <hr>
+              <form method="post" action="proses_pembelian.php">
+                <table>
+                    <tr>
+                        <td><p style="text-align: left;">Nama Pembeli</p></td>
+                        <td>: <input type="text" name="nama_pembeli"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Alamat Pembeli</p></td>
+                        <td>: <input type="text" name="alamat_pembeli"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Id Buah</p></td>
+                        <td>: <input type="text" name="id_buah" value="<?php echo $id_buah='A03'; ?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Nama Barang/Buah</p></td>
+                        <td>: <input type="text" name="nama_buah" value="<?php echo $fruitNames[$id_buah = 'A03']; ?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Harga Satuan</p></td>
+                        <td>: <input type="text" name="harga_buah" value="<?php echo $priceFruit[$id_buah='A03'];?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Jumlah Pembelian</p></td>
+                        <td>: <input type="text" name="jumlah_pembelian"></td>
+                    </tr>
+                </table>
+                <button type="submit" style="margin-bottom: 10px;">Submit</button>
+            </form>
+            <button type="button" onclick="hideFormOverlay()" style="background-color: red;">Close</button>
+          </div>
+        </div>
+        <div class="overlay3">
+            <div class="form-box">
+              <h3>Masukan data pembelian</h3>
+              <hr>
+              <form method="post" action="proses_pembelian.php">
+                <table>
+                    <tr>
+                        <td><p style="text-align: left;">Nama Pembeli</p></td>
+                        <td>: <input type="text" name="nama_pembeli"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Alamat Pembeli</p></td>
+                        <td>: <input type="text" name="alamat_pembeli"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Id Buah</p></td>
+                        <td>: <input type="text" name="id_buah" value="<?php echo $id_buah='A04'; ?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Nama Barang/Buah</p></td>
+                        <td>: <input type="text" name="nama_buah" value="<?php echo $fruitNames[$id_buah = 'A04']; ?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Harga Satuan</p></td>
+                        <td>: <input type="text" name="harga_buah" value="<?php echo $priceFruit[$id_buah='A04'];?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Jumlah Pembelian</p></td>
+                        <td>: <input type="text" name="jumlah_pembelian"></td>
+                    </tr>
+                </table>
+                <button type="submit" style="margin-bottom: 10px;">Submit</button>
+            </form>
+            <button type="button" onclick="hideFormOverlay()" style="background-color: red;">Close</button>
+          </div>
+        </div>
+        <div class="overlay4">
+            <div class="form-box">
+              <h3>Masukan data pembelian</h3>
+              <hr>
+              <form method="post" action="proses_pembelian.php">
+                <table>
+                    <tr>
+                        <td><p style="text-align: left;">Nama Pembeli</p></td>
+                        <td>: <input type="text" name="nama_pembeli"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Alamat Pembeli</p></td>
+                        <td>: <input type="text" name="alamat_pembeli"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Id Buah</p></td>
+                        <td>: <input type="text" name="id_buah" value="<?php echo $id_buah='A05'; ?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Nama Barang/Buah</p></td>
+                        <td>: <input type="text" name="nama_buah" value="<?php echo $fruitNames[$id_buah = 'A05']; ?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Harga Satuan</p></td>
+                        <td>: <input type="text" name="harga_buah" value="<?php echo $priceFruit[$id_buah='A05'];?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Jumlah Pembelian</p></td>
+                        <td>: <input type="text" name="jumlah_pembelian"></td>
+                    </tr>
+                </table>
+                <button type="submit" style="margin-bottom: 10px;">Submit</button>
+            </form>
+            <button type="button" onclick="hideFormOverlay()" style="background-color: red;">Close</button>
+          </div>
+        </div>
+        <div class="overlay5">
+            <div class="form-box">
+              <h3>Masukan data pembelian</h3>
+              <hr>
+              <form method="post" action="proses_pembelian.php">
+                <table>
+                    <tr>
+                        <td><p style="text-align: left;">Nama Pembeli</p></td>
+                        <td>: <input type="text" name="nama_pembeli"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Alamat Pembeli</p></td>
+                        <td>: <input type="text" name="alamat_pembeli"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Id Buah</p></td>
+                        <td>: <input type="text" name="id_buah" value="<?php echo $id_buah='A06'; ?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Nama Barang/Buah</p></td>
+                        <td>: <input type="text" name="nama_buah" value="<?php echo $fruitNames[$id_buah = 'A06']; ?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Harga Satuan</p></td>
+                        <td>: <input type="text" name="harga_buah" value="<?php echo $priceFruit[$id_buah='A06'];?>"></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align: left;">Jumlah Pembelian</p></td>
+                        <td>: <input type="text" name="jumlah_pembelian"></td>
+                    </tr>
+                </table>
+                <button type="submit" style="margin-bottom: 10px;">Submit</button>
+            </form>
+            <button type="button" onclick="hideFormOverlay()" style="background-color: red;">Close</button>
+          </div>
+        </div>
           
           <!-- Prompt untuk admin -->
           <script>
@@ -241,6 +490,44 @@ if ($result->num_rows > 0) {
                 }
             };
         </script>
+        <script>
+          function showFormOverlay() {
+            document.querySelector('.overlay').style.display = 'flex';
+          }
+          function hideFormOverlay() {
+            document.querySelector('.overlay').style.display = 'none';
+          }
+          function showFormOverlay1() {
+            document.querySelector('.overlay1').style.display = 'flex';
+          }
+          function hideFormOverlay1() {
+            document.querySelector('.overlay1').style.display = 'none';
+          }
+          function showFormOverlay2() {
+            document.querySelector('.overlay2').style.display = 'flex';
+          }
+          function hideFormOverlay2() {
+            document.querySelector('.overlay2').style.display = 'none';
+          }
+          function showFormOverlay3() {
+            document.querySelector('.overlay3').style.display = 'flex';
+          }
+          function hideFormOverlay3() {
+            document.querySelector('.overlay3').style.display = 'none';
+          }
+          function showFormOverlay4() {
+            document.querySelector('.overlay4').style.display = 'flex';
+          }
+          function hideFormOverlay4() {
+            document.querySelector('.overlay4').style.display = 'none';
+          }
+          function showFormOverlay5() {
+            document.querySelector('.overlay5').style.display = 'flex';
+          }
+          function hideFormOverlay5() {
+            document.querySelector('.overlay5').style.display = 'none';
+          }
+      </script>
     </body>
 </html>
 <?php

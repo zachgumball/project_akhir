@@ -15,7 +15,6 @@ if (isset($_POST['id_buah']) && isset($_POST['nama_buah']) && isset($_POST['harg
     $nama_buah = $_POST['nama_buah'];
     $harga_buah = $_POST['harga_buah'];
 
-    // Handle the image upload
     $targetDir = "uploads/";
     $targetFile = $targetDir . basename($_FILES["gambar"]["name"]);
     $uploadOk = 1;
@@ -26,11 +25,6 @@ if (isset($_POST['id_buah']) && isset($_POST['nama_buah']) && isset($_POST['harg
         $uploadOk = 1;
     } else {
         echo "File bukan gambar.";
-        $uploadOk = 0;
-    }
-
-    if (file_exists($targetFile)) {
-        echo "Sorry, file tidak ada.";
         $uploadOk = 0;
     }
 
